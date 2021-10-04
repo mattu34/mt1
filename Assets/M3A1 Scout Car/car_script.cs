@@ -31,22 +31,34 @@ public class car_script : MonoBehaviour
     float motor = 0.0f;
 
     void Start()
-    {
+    {   
+        //pythonでいうfor a in A:的なやつ
+        /*int[] array = { 0, 1, 2, 3, 4, 5 };
+
+        foreach (int i in array)
+        {
+            if (i == 2) continue;
+            else if (i == 3) break;
+
+            Debug.Log(i);
+        }
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        //wheelcolliderの回転速度に合わせてタイヤモデルを回転させる
-        wheelFLTrans.Rotate(wheelFL.rpm / 60 * 360 * Time.deltaTime, 0, 0);
+        //wheelcolliderの回転速度に合わせてタイヤモデルを回転させる(x軸を中心に回転)
+        wheelFLTrans.Rotate(wheelFL.rpm / 60 * 360 * Time.deltaTime, 0, 0); //「なぜ速度にTime.deltaTimeを掛けないといけないのか」の答えは「実際にそのフレームで進んだ"距離"を求める必要があるため」
         wheelFRTrans.Rotate(wheelFR.rpm / 60 * 360 * Time.deltaTime, 0, 0);
         wheelBLTrans.Rotate(wheelBL.rpm / 60 * 360 * Time.deltaTime, 0, 0);
         wheelBRTrans.Rotate(wheelBR.rpm / 60 * 360 * Time.deltaTime, 0, 0);
 
-        //wheelcolliderの角度に合わせてタイヤモデルを回転する（フロントのみ）
+        //wheelcolliderの角度に合わせてタイヤモデルを回転する（フロントのみ）(y軸を中心に回転)
         wheelFLTrans.localEulerAngles = new Vector3(wheelFLTrans.localEulerAngles.x, wheelFL.steerAngle - wheelFLTrans.localEulerAngles.z, wheelFLTrans.localEulerAngles.z);
         wheelFRTrans.localEulerAngles = new Vector3(wheelFRTrans.localEulerAngles.x, wheelFR.steerAngle - wheelFRTrans.localEulerAngles.z, wheelFRTrans.localEulerAngles.z);
 
+        //Debug.Log(Input.GetAxis("Horizontal"));
 
     }
 
